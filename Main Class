@@ -1,0 +1,59 @@
+package me.Jag.EM;
+
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin implements Listener {
+		
+	
+	@Override
+	public void onEnable() {
+		System.out.println("NoDropMine v1.0 Enabled");
+		
+		Bukkit.getServer().getPluginManager().registerEvents(this, this);
+		
+	}
+	
+	@Override
+	public void onDisable() {
+		System.out.println("NoDropMine v1.0 Disabled");
+	}
+	
+	@EventHandler
+		public void onBlockBreak(BlockBreakEvent event) {
+		
+			for(ItemStack is : event.getBlock().getDrops())
+				event.getPlayer().getInventory().addItem(is);
+				event.getBlock().getDrops().clear();
+}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label,String[] args) {
+		
+		if (cmd.getName().equalsIgnoreCase("NoDropMine")) {
+			sender.sendMessage(ChatColor.GOLD + "=== " + ChatColor.DARK_GRAY + ChatColor.BOLD + "|| " + ChatColor.DARK_GREEN + ChatColor.BOLD + "NoDropMine " + ChatColor.DARK_GRAY + ChatColor.BOLD + "|| " + ChatColor.GOLD + "===");
+			sender.sendMessage(ChatColor.YELLOW + "Version: v1.0");
+			sender.sendMessage(ChatColor.YELLOW + " ");
+			sender.sendMessage(ChatColor.YELLOW + "Description: A simple plugin to help reduce lag on prison servers by sending mined blocks straight into inventories");
+			sender.sendMessage(ChatColor.YELLOW + " ");
+			sender.sendMessage(ChatColor.YELLOW + "Author: ShadedJag");
+			sender.sendMessage(ChatColor.GOLD + "======" + ChatColor.DARK_GRAY + "||" + ChatColor.GOLD + "======");
+			
+		}
+		
+		return true;
+	}
+	
+	
+}
+    
+
+
